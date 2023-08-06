@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+
+const int dx[] = {-1, 1, 0, 0}; // Movement in x-direction
+const int dy[] = {0, 0, -1, 1}; // Movement in y-direction
+
+void dfs(int x, int y, std::vector<std::vector<char>>& building) {
+    int n = building.size();
+    int m = building[0].size();
+    
+    if (x < 0 || x >= n || y < 0 || y >= m || building[x][y] == '#') {
+        return;
+    }
+    
+    building[x][y] = '#'; // Mark the square as visited
+    
+    for (int i = 0; i < 4; ++i) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        dfs(nx, ny, building);
+    }
+}
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+
+    std::vector<std::vector<char>> building(n, std::vector<char>(m));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cin >> building[i][j];
+        }
+    }
+
+    int roomCount = 0;
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (building[i][j] == '.') {
+                dfs(i, j, building);
+                roomCount++;
+            }
+        }
+    }
+
+    std::cout << roomCount << std::endl;
+
+    return 0;
+}
