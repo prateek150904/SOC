@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <set>
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+
+    std::multiset<int> ticketPrices;
+    for (int i = 0; i < n; ++i) {
+        int price;
+        std::cin >> price;
+        ticketPrices.insert(price);
+    }
+
+    for (int i = 0; i < m; ++i) {
+        int maxPrice;
+        std::cin >> maxPrice;
+
+        auto it = ticketPrices.lower_bound(maxPrice);
+
+        if (it != ticketPrices.end()) {
+            std::cout << *it << std::endl;
+            ticketPrices.erase(it);
+        } else {
+            std::cout << "-1" << std::endl;
+        }
+    }
+
+    return 0;
+}
