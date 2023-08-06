@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string dna;
+    std::cin >> dna;
+
+    int longestRepetition = 0;
+    int currentRepetition = 1;
+
+    for (int i = 1; i < dna.length(); ++i) {
+        if (dna[i] == dna[i - 1]) {
+            currentRepetition++;
+        } else {
+            currentRepetition = 1;
+        }
+        longestRepetition = std::max(longestRepetition, currentRepetition);
+    }
+
+    std::cout << longestRepetition << std::endl;
+
+    return 0;
+}
